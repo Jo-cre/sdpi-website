@@ -33,7 +33,7 @@ export function LocaleToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="default">
           <span className="capitalize">{currentLocale}</span>
           <span className="sr-only">Toggle locale</span>
         </Button>
