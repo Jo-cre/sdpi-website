@@ -1,0 +1,11 @@
+{
+  "tokenCard": {
+    "title": "Insert your SDPI token",
+    "desc": "The token was provided upon delivery of the product."
+  },
+  "tokenForm": {
+    "desc": "Insert your token here.",
+    "error": "Token must be at least 2 characters.",
+    "button": "Submit"
+  }
+}

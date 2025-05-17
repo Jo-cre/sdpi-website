@@ -1,0 +1,11 @@
+{
+  "tokenCard": {
+    "title": "Ingrese su token SDPI",
+    "desc": "El token fue entregado con el dispositivo."
+  },
+  "tokenForm": {
+    "desc": "Inserta tu token aquí.",
+    "error": "El token debe contener al menos 2 dígitos.",
+    "button": "Enviar"
+  }
+}

@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +23,8 @@ const FormSchema = z.object({
 });
 
 export function TokenForm() {
+  const t = useTranslations("tokenForm");
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,12 +50,12 @@ export function TokenForm() {
               <FormControl>
                 <Input placeholder="token" {...field} className="text-center" />
               </FormControl>
-              <FormDescription>Insert your token here.</FormDescription>
+              <FormDescription>{t("desc")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{t("button")}</Button>
       </form>
     </Form>
   );
