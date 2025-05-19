@@ -11,15 +11,22 @@ const compat = new FlatCompat({
 
 /** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
-  // Ignorar apenas os arquivos relacionados ao Prisma
+  // Este bloco IGNORA arquivos do Prisma
   {
     ignores: [
-      'prisma/',
+      'prisma/**',
+      '**/.next/**',
+      '**/node_modules/**',
       '**/node_modules/.prisma/**',
       '**/node_modules/@prisma/client/**',
     ],
   },
 
-  // Aplicar as configs herdadas do ESLint antigo (Next.js + TS)
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  // Este bloco aplica as regras compatíveis com o antigo .eslintrc (Next.js + TS)
+  ...compat.extends([
+    'next/core-web-vitals',
+    'next',
+    'next/babel',
+    'next/typescript',
+  ]),
 ];
