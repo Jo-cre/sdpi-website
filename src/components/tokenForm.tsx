@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useMediaQuery from "@/hooks/useMediaQuery";
 
 type TokenFormProps = {
   onSuccess: (data: []) => void;
