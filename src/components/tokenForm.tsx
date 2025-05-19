@@ -21,7 +21,7 @@ export function TokenForm() {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const t = useTranslations("tokenForm");
-  var t2 = useTranslations("tokenCard");
+  const t2 = useTranslations("tokenCard");
 
   const FormSchema = z.object({
     token: z.string().min(2, {
