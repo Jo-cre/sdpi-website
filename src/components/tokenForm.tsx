@@ -24,7 +24,6 @@ type TokenFormProps = {
 export function TokenForm({ onSuccess }: TokenFormProps) {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const t = useTranslations("tokenForm");
-  const t2 = useTranslations("tokenCard");
 
   const FormSchema = z.object({
     token: z.string().min(2, { message: t("error") }),
@@ -75,7 +74,6 @@ export function TokenForm({ onSuccess }: TokenFormProps) {
           name="token"
           render={({ field }) => (
             <FormItem className="w-full flex flex-col items-center">
-              {isMobile && <FormDescription>{t2("desc")}</FormDescription>}
               <FormControl>
                 <Input placeholder="token" {...field} className="text-center" />
               </FormControl>
