@@ -22,7 +22,6 @@ type TokenFormProps = {
 };
 
 export function TokenForm({ onSuccess }: TokenFormProps) {
-  const isMobile = useMediaQuery("(max-width: 768px)");
   const t = useTranslations("tokenForm");
 
   const FormSchema = z.object({
