@@ -2,7 +2,6 @@
 import { LocaleToggle } from "@/components/localeToggle";
 import { ModeToggle } from "@/components/modeToggle";
 import { TokenCard } from "@/components/tokenCard";
-import { TokenForm } from "@/components/tokenForm";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 export default function Home() {
@@ -15,7 +14,7 @@ export default function Home() {
         <ModeToggle />
         <LocaleToggle />
       </div>
-      {isMobile ? <TokenForm /> : <TokenCard />}
+      <TokenCard />
     </div>
   );
 }

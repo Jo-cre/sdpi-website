@@ -14,9 +14,11 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 
 export function TokenCard() {
   const [apiData, setApiData] = useState<[] | null>(null);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
   const t = useTranslations("tokenCard");
-  const width = isTablet ? "50%" : "25%";
+  const width = isMobile ? "90%" : isTablet ? "50%" : "25%";
 
   return (
     <Card style={{ width }}>
