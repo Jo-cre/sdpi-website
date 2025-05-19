@@ -6,6 +6,7 @@
   "tokenForm": {
     "desc": "Inserta tu token aquí.",
     "error": "El token debe contener al menos 2 dígitos.",
+    "invalid": "Token inválido, inténtalo de nuevo.",
     "button": "Enviar"
   }
 }

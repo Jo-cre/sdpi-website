@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "run": "pnpm run dev",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "pnpm next lint"
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",

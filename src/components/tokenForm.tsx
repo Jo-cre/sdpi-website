@@ -17,42 +17,50 @@ import {
 import { Input } from "@/components/ui/input";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
-export function TokenForm() {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+type TokenFormProps = {
+  onSuccess: (data: []) => void;
+};
 
+export function TokenForm({ onSuccess }: TokenFormProps) {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const t = useTranslations("tokenForm");
   const t2 = useTranslations("tokenCard");
 
   const FormSchema = z.object({
-    token: z.string().min(2, {
-      message: t("error"),
-    }),
+    token: z.string().min(2, { message: t("error") }),
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      token: "",
-    },
+    defaultValues: { token: "" },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { token } = data;
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/readings?token=${token}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/readings?token=${data.token}`;
 
     fetch(url)
       .then((response) => {
         if (!response.ok) {
+          form.setError("token", {
+            type: "manual",
+            message: t("invalid"),
+          });
           throw new Error("Network response was not ok");
         }
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        if ((data = [])) console.error("No data found");
+        if (data.error) {
+          form.setError("token", {
+            type: "manual",
+            message: t("invalid"),
+          });
+        } else {
+          onSuccess(data); // <- avisa ao TokenCard que a API respondeu
+        }
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Erro na requisição:", error);
       });
   }
 

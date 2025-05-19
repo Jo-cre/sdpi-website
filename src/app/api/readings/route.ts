@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       );
     }
 
-    const leituras = await prisma.reading.findMany({
+    const readings = await prisma.reading.findMany({
       where: {
         DeviceId: token,
       },
@@ -27,7 +27,11 @@ export async function GET(request: Request) {
       },
     });
 
-    return NextResponse.json(leituras);
+    if (!readings || readings.length === 0) {
+      return NextResponse.json({ error: "No readings found" }, { status: 404 });
+    }
+
+    return NextResponse.json(readings);
   } catch (error) {
     console.error("[ERRO-GET-READINGS]", error);
     return NextResponse.json(
