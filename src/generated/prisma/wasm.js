@@ -132,7 +132,7 @@ exports.Prisma.ReadingScalarFieldEnum = {
   id: 'id',
   temperature: 'temperature',
   humidity: 'humidity',
-  data_hora: 'data_hora',
+  date_time: 'date_time',
   DeviceId: 'DeviceId'
 };
 

@@ -20,7 +20,7 @@ export async function GET(request: Request) {
         DeviceId: token,
       },
       orderBy: {
-        data_hora: "desc",
+        date_time: "desc",
       },
       include: {
         Device: true,

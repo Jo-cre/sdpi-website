@@ -2086,7 +2086,7 @@ export namespace Prisma {
     id: string | null
     temperature: number | null
     humidity: number | null
-    data_hora: Date | null
+    date_time: Date | null
     DeviceId: string | null
   }
 
@@ -2094,7 +2094,7 @@ export namespace Prisma {
     id: string | null
     temperature: number | null
     humidity: number | null
-    data_hora: Date | null
+    date_time: Date | null
     DeviceId: string | null
   }
 
@@ -2102,7 +2102,7 @@ export namespace Prisma {
     id: number
     temperature: number
     humidity: number
-    data_hora: number
+    date_time: number
     DeviceId: number
     _all: number
   }
@@ -2122,7 +2122,7 @@ export namespace Prisma {
     id?: true
     temperature?: true
     humidity?: true
-    data_hora?: true
+    date_time?: true
     DeviceId?: true
   }
 
@@ -2130,7 +2130,7 @@ export namespace Prisma {
     id?: true
     temperature?: true
     humidity?: true
-    data_hora?: true
+    date_time?: true
     DeviceId?: true
   }
 
@@ -2138,7 +2138,7 @@ export namespace Prisma {
     id?: true
     temperature?: true
     humidity?: true
-    data_hora?: true
+    date_time?: true
     DeviceId?: true
     _all?: true
   }
@@ -2233,7 +2233,7 @@ export namespace Prisma {
     id: string
     temperature: number
     humidity: number
-    data_hora: Date
+    date_time: Date
     DeviceId: string
     _count: ReadingCountAggregateOutputType | null
     _avg: ReadingAvgAggregateOutputType | null
@@ -2260,7 +2260,7 @@ export namespace Prisma {
     id?: boolean
     temperature?: boolean
     humidity?: boolean
-    data_hora?: boolean
+    date_time?: boolean
     DeviceId?: boolean
     Device?: boolean | DeviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reading"]>
@@ -2269,7 +2269,7 @@ export namespace Prisma {
     id?: boolean
     temperature?: boolean
     humidity?: boolean
-    data_hora?: boolean
+    date_time?: boolean
     DeviceId?: boolean
     Device?: boolean | DeviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reading"]>
@@ -2278,7 +2278,7 @@ export namespace Prisma {
     id?: boolean
     temperature?: boolean
     humidity?: boolean
-    data_hora?: boolean
+    date_time?: boolean
     DeviceId?: boolean
     Device?: boolean | DeviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reading"]>
@@ -2287,11 +2287,11 @@ export namespace Prisma {
     id?: boolean
     temperature?: boolean
     humidity?: boolean
-    data_hora?: boolean
+    date_time?: boolean
     DeviceId?: boolean
   }
 
-  export type ReadingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "temperature" | "humidity" | "data_hora" | "DeviceId", ExtArgs["result"]["reading"]>
+  export type ReadingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "temperature" | "humidity" | "date_time" | "DeviceId", ExtArgs["result"]["reading"]>
   export type ReadingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Device?: boolean | DeviceDefaultArgs<ExtArgs>
   }
@@ -2311,7 +2311,7 @@ export namespace Prisma {
       id: string
       temperature: number
       humidity: number
-      data_hora: Date
+      date_time: Date
       DeviceId: string
     }, ExtArgs["result"]["reading"]>
     composites: {}
@@ -2740,7 +2740,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Reading", 'String'>
     readonly temperature: FieldRef<"Reading", 'Float'>
     readonly humidity: FieldRef<"Reading", 'Float'>
-    readonly data_hora: FieldRef<"Reading", 'DateTime'>
+    readonly date_time: FieldRef<"Reading", 'DateTime'>
     readonly DeviceId: FieldRef<"Reading", 'String'>
   }
     
@@ -3185,7 +3185,7 @@ export namespace Prisma {
     id: 'id',
     temperature: 'temperature',
     humidity: 'humidity',
-    data_hora: 'data_hora',
+    date_time: 'date_time',
     DeviceId: 'DeviceId'
   };
 
@@ -3334,7 +3334,7 @@ export namespace Prisma {
     id?: StringFilter<"Reading"> | string
     temperature?: FloatFilter<"Reading"> | number
     humidity?: FloatFilter<"Reading"> | number
-    data_hora?: DateTimeFilter<"Reading"> | Date | string
+    date_time?: DateTimeFilter<"Reading"> | Date | string
     DeviceId?: StringFilter<"Reading"> | string
     Device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
   }
@@ -3343,7 +3343,7 @@ export namespace Prisma {
     id?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
-    data_hora?: SortOrder
+    date_time?: SortOrder
     DeviceId?: SortOrder
     Device?: DeviceOrderByWithRelationInput
   }
@@ -3355,7 +3355,7 @@ export namespace Prisma {
     NOT?: ReadingWhereInput | ReadingWhereInput[]
     temperature?: FloatFilter<"Reading"> | number
     humidity?: FloatFilter<"Reading"> | number
-    data_hora?: DateTimeFilter<"Reading"> | Date | string
+    date_time?: DateTimeFilter<"Reading"> | Date | string
     DeviceId?: StringFilter<"Reading"> | string
     Device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
   }, "id">
@@ -3364,7 +3364,7 @@ export namespace Prisma {
     id?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
-    data_hora?: SortOrder
+    date_time?: SortOrder
     DeviceId?: SortOrder
     _count?: ReadingCountOrderByAggregateInput
     _avg?: ReadingAvgOrderByAggregateInput
@@ -3380,7 +3380,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Reading"> | string
     temperature?: FloatWithAggregatesFilter<"Reading"> | number
     humidity?: FloatWithAggregatesFilter<"Reading"> | number
-    data_hora?: DateTimeWithAggregatesFilter<"Reading"> | Date | string
+    date_time?: DateTimeWithAggregatesFilter<"Reading"> | Date | string
     DeviceId?: StringWithAggregatesFilter<"Reading"> | string
   }
 
@@ -3448,7 +3448,7 @@ export namespace Prisma {
     id?: string
     temperature: number
     humidity: number
-    data_hora?: Date | string
+    date_time?: Date | string
     Device: DeviceCreateNestedOneWithoutReadInput
   }
 
@@ -3456,7 +3456,7 @@ export namespace Prisma {
     id?: string
     temperature: number
     humidity: number
-    data_hora?: Date | string
+    date_time?: Date | string
     DeviceId: string
   }
 
@@ -3464,7 +3464,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    data_hora?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_time?: DateTimeFieldUpdateOperationsInput | Date | string
     Device?: DeviceUpdateOneRequiredWithoutReadNestedInput
   }
 
@@ -3472,7 +3472,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    data_hora?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_time?: DateTimeFieldUpdateOperationsInput | Date | string
     DeviceId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -3480,7 +3480,7 @@ export namespace Prisma {
     id?: string
     temperature: number
     humidity: number
-    data_hora?: Date | string
+    date_time?: Date | string
     DeviceId: string
   }
 
@@ -3488,14 +3488,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    data_hora?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReadingUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    data_hora?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_time?: DateTimeFieldUpdateOperationsInput | Date | string
     DeviceId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -3611,7 +3611,7 @@ export namespace Prisma {
     id?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
-    data_hora?: SortOrder
+    date_time?: SortOrder
     DeviceId?: SortOrder
   }
 
@@ -3624,7 +3624,7 @@ export namespace Prisma {
     id?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
-    data_hora?: SortOrder
+    date_time?: SortOrder
     DeviceId?: SortOrder
   }
 
@@ -3632,7 +3632,7 @@ export namespace Prisma {
     id?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
-    data_hora?: SortOrder
+    date_time?: SortOrder
     DeviceId?: SortOrder
   }
 
@@ -3827,14 +3827,14 @@ export namespace Prisma {
     id?: string
     temperature: number
     humidity: number
-    data_hora?: Date | string
+    date_time?: Date | string
   }
 
   export type ReadingUncheckedCreateWithoutDeviceInput = {
     id?: string
     temperature: number
     humidity: number
-    data_hora?: Date | string
+    date_time?: Date | string
   }
 
   export type ReadingCreateOrConnectWithoutDeviceInput = {
@@ -3870,7 +3870,7 @@ export namespace Prisma {
     id?: StringFilter<"Reading"> | string
     temperature?: FloatFilter<"Reading"> | number
     humidity?: FloatFilter<"Reading"> | number
-    data_hora?: DateTimeFilter<"Reading"> | Date | string
+    date_time?: DateTimeFilter<"Reading"> | Date | string
     DeviceId?: StringFilter<"Reading"> | string
   }
 
@@ -3926,28 +3926,28 @@ export namespace Prisma {
     id?: string
     temperature: number
     humidity: number
-    data_hora?: Date | string
+    date_time?: Date | string
   }
 
   export type ReadingUpdateWithoutDeviceInput = {
     id?: StringFieldUpdateOperationsInput | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    data_hora?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReadingUncheckedUpdateWithoutDeviceInput = {
     id?: StringFieldUpdateOperationsInput | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    data_hora?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReadingUncheckedUpdateManyWithoutDeviceInput = {
     id?: StringFieldUpdateOperationsInput | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    data_hora?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -27,7 +27,7 @@ model Reading {
   id            String     @id @default(uuid())
   temperature   Float
   humidity      Float
-  data_hora     DateTime   @default(now())
+  date_time     DateTime   @default(now())
   DeviceId      String
   Device        Device @relation(fields: [DeviceId], references: [token])
 }
