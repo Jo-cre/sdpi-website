@@ -12,6 +12,7 @@ import {
 } from "./ui/card";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { Button } from "./ui/button";
+import { Chart } from "./chart";
 
 export function TokenCard() {
   const [apiData, setApiData] = useState<[] | null>(null);
@@ -28,32 +29,38 @@ export function TokenCard() {
   }
 
   return (
-    <Card style={{ width }}>
+    <Card style={{ minWidth: width }}>
       <CardHeader>
         <CardTitle className="m-auto">
-          {loading ? t("load") : t("title")}
+          {loading
+            ? t("load")
+            : apiData && apiData.length > 0
+            ? "ㅤㅤ"
+            : t("title")}
         </CardTitle>
         <CardDescription className="m-auto">
-          {loading ? "" : t("desc")}
+          {loading ? "" : apiData && apiData.length > 0 ? "" : t("desc")}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center">
         {apiData ? (
-          <div className="text-center">
+          <div className="text-center relative">
             <pre className=" p-2 rounded text-sm max-w-full overflow-x-auto text-left">
-              {JSON.stringify(
-                apiData
+              <Chart
+                data={apiData
                   .slice()
                   .sort(
                     (a: { dateTime: string }, b: { dateTime: string }) =>
                       new Date(b.dateTime).getTime() -
                       new Date(a.dateTime).getTime()
-                  )[0],
-                null,
-                2
-              )}
+                  )}
+              />
             </pre>
-            <Button type="button" onClick={handleReset}>
+            <Button
+              className="absolute right-0 bottom-0"
+              type="button"
+              onClick={handleReset}
+            >
               {t("back")}
             </Button>
           </div>
@@ -65,7 +72,10 @@ export function TokenCard() {
               onLoading={setLoading}
             />
             {loading && (
-              <div className="absolute inset-0 flex items-center justify-center z-10 bg-card">
+              <div
+                className="absolute inset-0 flex items-center justify-center z-10 bg-card"
+                style={{ minHeight: 120 }}
+              >
                 <span className="inline-block w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></span>
               </div>
             )}

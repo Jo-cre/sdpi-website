@@ -3,12 +3,23 @@
     "title": "Insert your SDPI token",
     "desc": "The token was provided upon delivery of the product.",
     "load": "Loading...",
-    "back": "Back"
+    "back": "Back",
+    "chart": {
+      "title": "Device readings",
+      "desc": "This chart shows the readings from your device over time."
+    }
   },
   "tokenForm": {
     "desc": "Insert your token here.",
     "error": "Token must be at least 2 characters.",
     "invalid": "Invalid token, try again.",
     "button": "Submit"
+  },
+  "chart": {
+    "label": {
+      "temperature": "Temperature (°C)",
+      "humidity": "Humidity (%)"
+    },
+    "noData": "No data available for this token."
   }
 }

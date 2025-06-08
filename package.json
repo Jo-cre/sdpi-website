@@ -40,5 +40,10 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.0",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "react-is": "^18.2.0"
+    }
   }
 }

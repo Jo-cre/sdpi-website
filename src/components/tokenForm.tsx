@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 type TokenFormProps = {
-  onSuccess: (data: []) => void;
+  onSuccess: (data: [], token: string) => void;
   onLoading: (loading: boolean) => void;
 };
 
@@ -59,7 +59,7 @@ export function TokenForm({ onSuccess, onLoading }: TokenFormProps) {
           onLoading(false);
         } else {
           onLoading(false);
-          onSuccess(data);
+          onSuccess(data, form.getValues("token"));
         }
       })
       .catch((error) => {
