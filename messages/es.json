@@ -1,7 +1,9 @@
 {
   "tokenCard": {
     "title": "Ingrese su token SDPI",
-    "desc": "El token fue entregado con el dispositivo."
+    "desc": "El token fue entregado con el dispositivo.",
+    "load": "Cargando...",
+    "back": "Volver"
   },
   "tokenForm": {
     "desc": "Inserta tu token aquí.",

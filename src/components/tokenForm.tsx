@@ -18,9 +18,10 @@ import { Input } from "@/components/ui/input";
 
 type TokenFormProps = {
   onSuccess: (data: []) => void;
+  onLoading: (loading: boolean) => void;
 };
 
-export function TokenForm({ onSuccess }: TokenFormProps) {
+export function TokenForm({ onSuccess, onLoading }: TokenFormProps) {
   const t = useTranslations("tokenForm");
 
   const FormSchema = z.object({
@@ -35,13 +36,16 @@ export function TokenForm({ onSuccess }: TokenFormProps) {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/readings?token=${data.token}`;
 
+    onLoading(true);
+
     fetch(url)
-      .then((response) => {
+      .then(async (response) => {
         if (!response.ok) {
           form.setError("token", {
             type: "manual",
             message: t("invalid"),
           });
+          onLoading(false);
           throw new Error("Network response was not ok");
         }
         return response.json();
@@ -52,11 +56,18 @@ export function TokenForm({ onSuccess }: TokenFormProps) {
             type: "manual",
             message: t("invalid"),
           });
+          onLoading(false);
         } else {
-          onSuccess(data); // <- avisa ao TokenCard que a API respondeu
+          onLoading(false);
+          onSuccess(data);
         }
       })
       .catch((error) => {
+        form.setError("token", {
+          type: "manual",
+          message: t("invalid"),
+        });
+        onLoading(false);
         console.error("Erro na requisição:", error);
       });
   }

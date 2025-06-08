@@ -1,7 +1,9 @@
 {
   "tokenCard": {
     "title": "Insert your SDPI token",
-    "desc": "The token was provided upon delivery of the product."
+    "desc": "The token was provided upon delivery of the product.",
+    "load": "Loading...",
+    "back": "Back"
   },
   "tokenForm": {
     "desc": "Insert your token here.",
