@@ -40,7 +40,7 @@ export function TokenCard() {
       const data = await response.json();
       setApiData(data);
     } catch (e) {
-      // handle error if needed
+      throw new Error("Error: " + e);
     }
   }, [token]);
 
@@ -55,7 +55,7 @@ export function TokenCard() {
   }, [apiData, token, refetchData]);
 
   // Função para receber dados e token do TokenForm
-  function handleFormSuccess(data: any, tokenValue: string) {
+  function handleFormSuccess(data: [], tokenValue: string) {
     setApiData(data);
     setToken(tokenValue);
   }
