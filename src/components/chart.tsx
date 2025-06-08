@@ -11,8 +11,14 @@ import {
 } from "@/components/ui/chart";
 import { useTranslations } from "next-intl";
 
+type ChartData = {
+  date_time: string;
+  temperature: number;
+  humidity: number;
+};
+
 type ChartProps = {
-  data: any[];
+  data: ChartData[];
 };
 
 export function Chart({ data }: ChartProps) {

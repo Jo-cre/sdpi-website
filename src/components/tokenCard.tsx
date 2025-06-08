@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { TokenForm } from "./tokenForm";
 import {
@@ -16,6 +16,7 @@ import { Chart } from "./chart";
 
 export function TokenCard() {
   const [apiData, setApiData] = useState<[] | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [formKey, setFormKey] = useState(0);
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -25,7 +26,38 @@ export function TokenCard() {
 
   function handleReset() {
     setApiData(null);
+    setToken(null);
     setFormKey((k) => k + 1);
+  }
+
+  const refetchData = useCallback(async () => {
+    if (!token) return;
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/readings?token=${token}`
+      );
+      if (!response.ok) throw new Error("Erro ao buscar dados");
+      const data = await response.json();
+      setApiData(data);
+    } catch (e) {
+      // handle error if needed
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (apiData && apiData.length > 0 && token) {
+      const interval = setInterval(() => {
+        console.log("Atualizando dados do gráfico...");
+        refetchData();
+      }, 10 * 1000); // 30 segundos
+      return () => clearInterval(interval);
+    }
+  }, [apiData, token, refetchData]);
+
+  // Função para receber dados e token do TokenForm
+  function handleFormSuccess(data: any, tokenValue: string) {
+    setApiData(data);
+    setToken(tokenValue);
   }
 
   return (
@@ -35,32 +67,32 @@ export function TokenCard() {
           {loading
             ? t("load")
             : apiData && apiData.length > 0
-            ? "ㅤㅤ"
+            ? t("chart.title")
             : t("title")}
         </CardTitle>
         <CardDescription className="m-auto">
-          {loading ? "" : apiData && apiData.length > 0 ? "" : t("desc")}
+          {loading
+            ? ""
+            : apiData && apiData.length > 0
+            ? t("chart.desc")
+            : t("desc")}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center">
         {apiData ? (
-          <div className="text-center relative">
+          <div className="text-center">
             <pre className=" p-2 rounded text-sm max-w-full overflow-x-auto text-left">
               <Chart
                 data={apiData
                   .slice()
                   .sort(
-                    (a: { dateTime: string }, b: { dateTime: string }) =>
-                      new Date(b.dateTime).getTime() -
-                      new Date(a.dateTime).getTime()
+                    (a: { date_time: string }, b: { date_time: string }) =>
+                      new Date(a.date_time).getTime() -
+                      new Date(b.date_time).getTime()
                   )}
               />
             </pre>
-            <Button
-              className="absolute right-0 bottom-0"
-              type="button"
-              onClick={handleReset}
-            >
+            <Button className="mt-auto" type="button" onClick={handleReset}>
               {t("back")}
             </Button>
           </div>
@@ -68,7 +100,7 @@ export function TokenCard() {
           <div className="relative w-full">
             <TokenForm
               key={formKey}
-              onSuccess={setApiData}
+              onSuccess={handleFormSuccess}
               onLoading={setLoading}
             />
             {loading && (
