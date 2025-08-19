@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
     if (!token || temperature == null || humidity == null) {
       return NextResponse.json(
-        { error: "Campos obrigatórios: token, temperatura e umidade." },
+        { error: "Mandatory fields: token, temperature and humidity." },
         { status: 400 }
       );
     }
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(
           {
             error:
-              "Dispositivo não encontrado. Informe address, state e city para criá-lo.",
+              "Device not found. Enter address, state, and city to create it.",
           },
           { status: 400 }
         );
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Leitura registrada com sucesso.",
+        message: "Reading registered successfully.",
         leitura,
       },
       { status: 201 }
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Erro interno ao registrar leitura." },
+      { error: "Internal error when registering reading." },
       { status: 500 }
     );
   }
