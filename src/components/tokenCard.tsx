@@ -12,10 +12,8 @@ import {
 } from "./ui/card";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -28,17 +26,17 @@ import { Chart } from "./chart";
 
 type Device = {
   id: number;
-  token: String;
+  token: string;
   read: Reading[];
-  createdAt: String;
-  name: String;
+  createdAt: string;
+  name: string;
 };
 
 type Reading = {
-  id: String;
+  id: string;
   temperature: number;
   humidity: number;
-  date_time: String;
+  date_time: string;
   deviceId: number;
   device: Device;
 };
@@ -77,25 +75,22 @@ export function TokenCard() {
     }
   }, [token]);
 
-  const fetchChartData = useCallback(
-    async (id: number) => {
-      console.log(id);
+  const fetchChartData = useCallback(async (id: number) => {
+    console.log(id);
 
-      if (!id) return;
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/readings?id=${id}`
-        );
-        if (!response.ok) throw new Error("Error fetching reading data");
-        const data = await response.json();
-        setChartData(data);
-        console.log(data);
-      } catch (e) {
-        throw new Error("Error: " + e);
-      }
-    },
-    [token]
-  );
+    if (!id) return;
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/readings?id=${id}`
+      );
+      if (!response.ok) throw new Error("Error fetching reading data");
+      const data = await response.json();
+      setChartData(data);
+      console.log(data);
+    } catch (e) {
+      throw new Error("Error: " + e);
+    }
+  }, []);
 
   useEffect(() => {
     if (apiData && apiData.length > 0 && token) {
@@ -147,7 +142,7 @@ export function TokenCard() {
             <pre className=" p-2 rounded text-sm max-w-full overflow-x-auto text-left">
               <ScrollArea className="h-[200px] w-[350px]">
                 {apiData.map((device) => (
-                  <Dialog>
+                  <Dialog key={"dialog " + device.id}>
                     <DialogTrigger
                       className="hover:hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50
                         w-full text-start h-9 px-4 py-2 has-[>svg]:px-3"
@@ -182,7 +177,7 @@ export function TokenCard() {
                           />
                         ) : (
                           <div
-                            className="inset-0 flex items-center justify-center z-10 bg-card"
+                            className="inset-0 flex items-center justify-center z-10 bg-dialog"
                             style={{ minHeight: 120 }}
                           >
                             <span className="inline-block w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></span>
