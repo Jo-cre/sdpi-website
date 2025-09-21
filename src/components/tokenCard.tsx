@@ -10,18 +10,50 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { Button } from "./ui/button";
 import { Chart } from "./chart";
 
+type Device = {
+  id: number;
+  token: String;
+  read: Reading[];
+  createdAt: String;
+  name: String;
+};
+
+type Reading = {
+  id: String;
+  temperature: number;
+  humidity: number;
+  date_time: String;
+  deviceId: number;
+  device: Device;
+};
+
 export function TokenCard() {
-  const [apiData, setApiData] = useState<[] | null>(null);
+  const [apiData, setApiData] = useState<Device[] | null>(null);
+  const [chartData, setChartData] = useState<[] | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [dId, setDId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [formKey, setFormKey] = useState(0);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
   const t = useTranslations("tokenCard");
+  const t2 = useTranslations("devices");
   const width = isMobile ? "90%" : isTablet ? "50%" : "25%";
 
   function handleReset() {
@@ -34,25 +66,56 @@ export function TokenCard() {
     if (!token) return;
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/readings?token=${token}`
+        `${process.env.NEXT_PUBLIC_API_URL}/devices?token=${token}`
       );
-      if (!response.ok) throw new Error("Erro ao buscar dados");
+      if (!response.ok) throw new Error("Error fetching data");
       const data = await response.json();
       setApiData(data);
+      console.log(data);
     } catch (e) {
       throw new Error("Error: " + e);
     }
   }, [token]);
 
+  const fetchChartData = useCallback(
+    async (id: number) => {
+      console.log(id);
+
+      if (!id) return;
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/readings?id=${id}`
+        );
+        if (!response.ok) throw new Error("Error fetching reading data");
+        const data = await response.json();
+        setChartData(data);
+        console.log(data);
+      } catch (e) {
+        throw new Error("Error: " + e);
+      }
+    },
+    [token]
+  );
+
   useEffect(() => {
     if (apiData && apiData.length > 0 && token) {
       const interval = setInterval(() => {
-        console.log("Atualizando dados do gráfico...");
+        console.log("Updating data...");
         refetchData();
-      }, 10 * 1000); // 30 segundos
+      }, 20 * 1000); // 60 segundos
       return () => clearInterval(interval);
     }
   }, [apiData, token, refetchData]);
+
+  useEffect(() => {
+    if (chartData && chartData.length > 0 && dId) {
+      const interval = setInterval(() => {
+        console.log("Updating chart data...");
+        fetchChartData(dId);
+      }, 10 * 1000); // 30 segundos
+      return () => clearInterval(interval);
+    }
+  }, [chartData, dId, fetchChartData]);
 
   // Função para receber dados e token do TokenForm
   function handleFormSuccess(data: [], tokenValue: string) {
@@ -67,14 +130,14 @@ export function TokenCard() {
           {loading
             ? t("load")
             : apiData && apiData.length > 0
-            ? t("chart.title")
+            ? t2("title")
             : t("title")}
         </CardTitle>
         <CardDescription className="m-auto">
           {loading
             ? ""
             : apiData && apiData.length > 0
-            ? t("chart.desc")
+            ? t2("desc")
             : t("desc")}
         </CardDescription>
       </CardHeader>
@@ -82,15 +145,55 @@ export function TokenCard() {
         {apiData ? (
           <div className="text-center">
             <pre className=" p-2 rounded text-sm max-w-full overflow-x-auto text-left">
-              <Chart
-                data={apiData
-                  .slice()
-                  .sort(
-                    (a: { date_time: string }, b: { date_time: string }) =>
-                      new Date(a.date_time).getTime() -
-                      new Date(b.date_time).getTime()
-                  )}
-              />
+              <ScrollArea className="h-[200px] w-[350px]">
+                {apiData.map((device) => (
+                  <Dialog>
+                    <DialogTrigger
+                      className="hover:hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50
+                        w-full text-start h-9 px-4 py-2 has-[>svg]:px-3"
+                      onClick={() => {
+                        setChartData(null);
+                        setDId(device.id);
+                        fetchChartData(device.id);
+                      }}
+                    >
+                      {device.name}
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle className="text-center">
+                          {t("chart.title")}
+                        </DialogTitle>
+                        <DialogDescription className="text-center">
+                          {t("chart.desc")}
+                        </DialogDescription>
+                        {chartData ? (
+                          <Chart
+                            data={chartData
+                              .slice()
+                              .sort(
+                                (
+                                  a: { date_time: string },
+                                  b: { date_time: string }
+                                ) =>
+                                  new Date(a.date_time).getTime() -
+                                  new Date(b.date_time).getTime()
+                              )}
+                          />
+                        ) : (
+                          <div
+                            className="inset-0 flex items-center justify-center z-10 bg-card"
+                            style={{ minHeight: 120 }}
+                          >
+                            <span className="inline-block w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></span>
+                          </div>
+                        )}
+                      </DialogHeader>
+                    </DialogContent>
+                    <Separator />
+                  </Dialog>
+                ))}
+              </ScrollArea>
             </pre>
             <Button className="mt-auto" type="button" onClick={handleReset}>
               {t("back")}

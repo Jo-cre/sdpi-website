@@ -996,58 +996,88 @@ export namespace Prisma {
 
   export type AggregateDevice = {
     _count: DeviceCountAggregateOutputType | null
+    _avg: DeviceAvgAggregateOutputType | null
+    _sum: DeviceSumAggregateOutputType | null
     _min: DeviceMinAggregateOutputType | null
     _max: DeviceMaxAggregateOutputType | null
   }
 
+  export type DeviceAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type DeviceSumAggregateOutputType = {
+    id: number | null
+  }
+
   export type DeviceMinAggregateOutputType = {
+    id: number | null
     token: string | null
     address: string | null
     state: string | null
     city: string | null
     createdAt: Date | null
+    name: string | null
   }
 
   export type DeviceMaxAggregateOutputType = {
+    id: number | null
     token: string | null
     address: string | null
     state: string | null
     city: string | null
     createdAt: Date | null
+    name: string | null
   }
 
   export type DeviceCountAggregateOutputType = {
+    id: number
     token: number
     address: number
     state: number
     city: number
     createdAt: number
+    name: number
     _all: number
   }
 
 
+  export type DeviceAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type DeviceSumAggregateInputType = {
+    id?: true
+  }
+
   export type DeviceMinAggregateInputType = {
+    id?: true
     token?: true
     address?: true
     state?: true
     city?: true
     createdAt?: true
+    name?: true
   }
 
   export type DeviceMaxAggregateInputType = {
+    id?: true
     token?: true
     address?: true
     state?: true
     city?: true
     createdAt?: true
+    name?: true
   }
 
   export type DeviceCountAggregateInputType = {
+    id?: true
     token?: true
     address?: true
     state?: true
     city?: true
     createdAt?: true
+    name?: true
     _all?: true
   }
 
@@ -1089,6 +1119,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: DeviceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DeviceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: DeviceMinAggregateInputType
@@ -1119,17 +1161,23 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: DeviceCountAggregateInputType | true
+    _avg?: DeviceAvgAggregateInputType
+    _sum?: DeviceSumAggregateInputType
     _min?: DeviceMinAggregateInputType
     _max?: DeviceMaxAggregateInputType
   }
 
   export type DeviceGroupByOutputType = {
+    id: number
     token: string
     address: string
     state: string
     city: string
     createdAt: Date
+    name: string
     _count: DeviceCountAggregateOutputType | null
+    _avg: DeviceAvgAggregateOutputType | null
+    _sum: DeviceSumAggregateOutputType | null
     _min: DeviceMinAggregateOutputType | null
     _max: DeviceMaxAggregateOutputType | null
   }
@@ -1149,40 +1197,48 @@ export namespace Prisma {
 
 
   export type DeviceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     token?: boolean
     address?: boolean
     state?: boolean
     city?: boolean
     createdAt?: boolean
+    name?: boolean
     read?: boolean | Device$readArgs<ExtArgs>
     _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["device"]>
 
   export type DeviceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     token?: boolean
     address?: boolean
     state?: boolean
     city?: boolean
     createdAt?: boolean
+    name?: boolean
   }, ExtArgs["result"]["device"]>
 
   export type DeviceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     token?: boolean
     address?: boolean
     state?: boolean
     city?: boolean
     createdAt?: boolean
+    name?: boolean
   }, ExtArgs["result"]["device"]>
 
   export type DeviceSelectScalar = {
+    id?: boolean
     token?: boolean
     address?: boolean
     state?: boolean
     city?: boolean
     createdAt?: boolean
+    name?: boolean
   }
 
-  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"token" | "address" | "state" | "city" | "createdAt", ExtArgs["result"]["device"]>
+  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "address" | "state" | "city" | "createdAt" | "name", ExtArgs["result"]["device"]>
   export type DeviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     read?: boolean | Device$readArgs<ExtArgs>
     _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
@@ -1196,11 +1252,13 @@ export namespace Prisma {
       read: Prisma.$ReadingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
+      id: number
       token: string
       address: string
       state: string
       city: string
       createdAt: Date
+      name: string
     }, ExtArgs["result"]["device"]>
     composites: {}
   }
@@ -1284,8 +1342,8 @@ export namespace Prisma {
      * // Get first 10 Devices
      * const devices = await prisma.device.findMany({ take: 10 })
      * 
-     * // Only select the `token`
-     * const deviceWithTokenOnly = await prisma.device.findMany({ select: { token: true } })
+     * // Only select the `id`
+     * const deviceWithIdOnly = await prisma.device.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends DeviceFindManyArgs>(args?: SelectSubset<T, DeviceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1329,9 +1387,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Devices and only return the `token`
-     * const deviceWithTokenOnly = await prisma.device.createManyAndReturn({
-     *   select: { token: true },
+     * // Create many Devices and only return the `id`
+     * const deviceWithIdOnly = await prisma.device.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -1420,9 +1478,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Devices and only return the `token`
-     * const deviceWithTokenOnly = await prisma.device.updateManyAndReturn({
-     *   select: { token: true },
+     * // Update zero or more Devices and only return the `id`
+     * const deviceWithIdOnly = await prisma.device.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1625,11 +1683,13 @@ export namespace Prisma {
    * Fields of the Device model
    */
   interface DeviceFieldRefs {
+    readonly id: FieldRef<"Device", 'Int'>
     readonly token: FieldRef<"Device", 'String'>
     readonly address: FieldRef<"Device", 'String'>
     readonly state: FieldRef<"Device", 'String'>
     readonly city: FieldRef<"Device", 'String'>
     readonly createdAt: FieldRef<"Device", 'DateTime'>
+    readonly name: FieldRef<"Device", 'String'>
   }
     
 
@@ -2075,11 +2135,13 @@ export namespace Prisma {
   export type ReadingAvgAggregateOutputType = {
     temperature: number | null
     humidity: number | null
+    deviceId: number | null
   }
 
   export type ReadingSumAggregateOutputType = {
     temperature: number | null
     humidity: number | null
+    deviceId: number | null
   }
 
   export type ReadingMinAggregateOutputType = {
@@ -2087,7 +2149,7 @@ export namespace Prisma {
     temperature: number | null
     humidity: number | null
     date_time: Date | null
-    DeviceId: string | null
+    deviceId: number | null
   }
 
   export type ReadingMaxAggregateOutputType = {
@@ -2095,7 +2157,7 @@ export namespace Prisma {
     temperature: number | null
     humidity: number | null
     date_time: Date | null
-    DeviceId: string | null
+    deviceId: number | null
   }
 
   export type ReadingCountAggregateOutputType = {
@@ -2103,7 +2165,7 @@ export namespace Prisma {
     temperature: number
     humidity: number
     date_time: number
-    DeviceId: number
+    deviceId: number
     _all: number
   }
 
@@ -2111,11 +2173,13 @@ export namespace Prisma {
   export type ReadingAvgAggregateInputType = {
     temperature?: true
     humidity?: true
+    deviceId?: true
   }
 
   export type ReadingSumAggregateInputType = {
     temperature?: true
     humidity?: true
+    deviceId?: true
   }
 
   export type ReadingMinAggregateInputType = {
@@ -2123,7 +2187,7 @@ export namespace Prisma {
     temperature?: true
     humidity?: true
     date_time?: true
-    DeviceId?: true
+    deviceId?: true
   }
 
   export type ReadingMaxAggregateInputType = {
@@ -2131,7 +2195,7 @@ export namespace Prisma {
     temperature?: true
     humidity?: true
     date_time?: true
-    DeviceId?: true
+    deviceId?: true
   }
 
   export type ReadingCountAggregateInputType = {
@@ -2139,7 +2203,7 @@ export namespace Prisma {
     temperature?: true
     humidity?: true
     date_time?: true
-    DeviceId?: true
+    deviceId?: true
     _all?: true
   }
 
@@ -2234,7 +2298,7 @@ export namespace Prisma {
     temperature: number
     humidity: number
     date_time: Date
-    DeviceId: string
+    deviceId: number
     _count: ReadingCountAggregateOutputType | null
     _avg: ReadingAvgAggregateOutputType | null
     _sum: ReadingSumAggregateOutputType | null
@@ -2261,8 +2325,8 @@ export namespace Prisma {
     temperature?: boolean
     humidity?: boolean
     date_time?: boolean
-    DeviceId?: boolean
-    Device?: boolean | DeviceDefaultArgs<ExtArgs>
+    deviceId?: boolean
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reading"]>
 
   export type ReadingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2270,8 +2334,8 @@ export namespace Prisma {
     temperature?: boolean
     humidity?: boolean
     date_time?: boolean
-    DeviceId?: boolean
-    Device?: boolean | DeviceDefaultArgs<ExtArgs>
+    deviceId?: boolean
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reading"]>
 
   export type ReadingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2279,8 +2343,8 @@ export namespace Prisma {
     temperature?: boolean
     humidity?: boolean
     date_time?: boolean
-    DeviceId?: boolean
-    Device?: boolean | DeviceDefaultArgs<ExtArgs>
+    deviceId?: boolean
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reading"]>
 
   export type ReadingSelectScalar = {
@@ -2288,31 +2352,31 @@ export namespace Prisma {
     temperature?: boolean
     humidity?: boolean
     date_time?: boolean
-    DeviceId?: boolean
+    deviceId?: boolean
   }
 
-  export type ReadingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "temperature" | "humidity" | "date_time" | "DeviceId", ExtArgs["result"]["reading"]>
+  export type ReadingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "temperature" | "humidity" | "date_time" | "deviceId", ExtArgs["result"]["reading"]>
   export type ReadingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Device?: boolean | DeviceDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
   }
   export type ReadingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Device?: boolean | DeviceDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
   }
   export type ReadingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Device?: boolean | DeviceDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
   }
 
   export type $ReadingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Reading"
     objects: {
-      Device: Prisma.$DevicePayload<ExtArgs>
+      device: Prisma.$DevicePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       temperature: number
       humidity: number
       date_time: Date
-      DeviceId: string
+      deviceId: number
     }, ExtArgs["result"]["reading"]>
     composites: {}
   }
@@ -2707,7 +2771,7 @@ export namespace Prisma {
    */
   export interface Prisma__ReadingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2741,7 +2805,7 @@ export namespace Prisma {
     readonly temperature: FieldRef<"Reading", 'Float'>
     readonly humidity: FieldRef<"Reading", 'Float'>
     readonly date_time: FieldRef<"Reading", 'DateTime'>
-    readonly DeviceId: FieldRef<"Reading", 'String'>
+    readonly deviceId: FieldRef<"Reading", 'Int'>
   }
     
 
@@ -3171,11 +3235,13 @@ export namespace Prisma {
 
 
   export const DeviceScalarFieldEnum: {
+    id: 'id',
     token: 'token',
     address: 'address',
     state: 'state',
     city: 'city',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    name: 'name'
   };
 
   export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
@@ -3186,7 +3252,7 @@ export namespace Prisma {
     temperature: 'temperature',
     humidity: 'humidity',
     date_time: 'date_time',
-    DeviceId: 'DeviceId'
+    deviceId: 'deviceId'
   };
 
   export type ReadingScalarFieldEnum = (typeof ReadingScalarFieldEnum)[keyof typeof ReadingScalarFieldEnum]
@@ -3211,6 +3277,20 @@ export namespace Prisma {
   /**
    * Field references
    */
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
 
 
   /**
@@ -3253,20 +3333,6 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
   /**
    * Deep Input Types
    */
@@ -3276,55 +3342,67 @@ export namespace Prisma {
     AND?: DeviceWhereInput | DeviceWhereInput[]
     OR?: DeviceWhereInput[]
     NOT?: DeviceWhereInput | DeviceWhereInput[]
+    id?: IntFilter<"Device"> | number
     token?: StringFilter<"Device"> | string
     address?: StringFilter<"Device"> | string
     state?: StringFilter<"Device"> | string
     city?: StringFilter<"Device"> | string
     createdAt?: DateTimeFilter<"Device"> | Date | string
+    name?: StringFilter<"Device"> | string
     read?: ReadingListRelationFilter
   }
 
   export type DeviceOrderByWithRelationInput = {
+    id?: SortOrder
     token?: SortOrder
     address?: SortOrder
     state?: SortOrder
     city?: SortOrder
     createdAt?: SortOrder
+    name?: SortOrder
     read?: ReadingOrderByRelationAggregateInput
   }
 
   export type DeviceWhereUniqueInput = Prisma.AtLeast<{
-    token?: string
+    id?: number
     AND?: DeviceWhereInput | DeviceWhereInput[]
     OR?: DeviceWhereInput[]
     NOT?: DeviceWhereInput | DeviceWhereInput[]
+    token?: StringFilter<"Device"> | string
     address?: StringFilter<"Device"> | string
     state?: StringFilter<"Device"> | string
     city?: StringFilter<"Device"> | string
     createdAt?: DateTimeFilter<"Device"> | Date | string
+    name?: StringFilter<"Device"> | string
     read?: ReadingListRelationFilter
-  }, "token">
+  }, "id">
 
   export type DeviceOrderByWithAggregationInput = {
+    id?: SortOrder
     token?: SortOrder
     address?: SortOrder
     state?: SortOrder
     city?: SortOrder
     createdAt?: SortOrder
+    name?: SortOrder
     _count?: DeviceCountOrderByAggregateInput
+    _avg?: DeviceAvgOrderByAggregateInput
     _max?: DeviceMaxOrderByAggregateInput
     _min?: DeviceMinOrderByAggregateInput
+    _sum?: DeviceSumOrderByAggregateInput
   }
 
   export type DeviceScalarWhereWithAggregatesInput = {
     AND?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
     OR?: DeviceScalarWhereWithAggregatesInput[]
     NOT?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Device"> | number
     token?: StringWithAggregatesFilter<"Device"> | string
     address?: StringWithAggregatesFilter<"Device"> | string
     state?: StringWithAggregatesFilter<"Device"> | string
     city?: StringWithAggregatesFilter<"Device"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
+    name?: StringWithAggregatesFilter<"Device"> | string
   }
 
   export type ReadingWhereInput = {
@@ -3335,8 +3413,8 @@ export namespace Prisma {
     temperature?: FloatFilter<"Reading"> | number
     humidity?: FloatFilter<"Reading"> | number
     date_time?: DateTimeFilter<"Reading"> | Date | string
-    DeviceId?: StringFilter<"Reading"> | string
-    Device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+    deviceId?: IntFilter<"Reading"> | number
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
   }
 
   export type ReadingOrderByWithRelationInput = {
@@ -3344,8 +3422,8 @@ export namespace Prisma {
     temperature?: SortOrder
     humidity?: SortOrder
     date_time?: SortOrder
-    DeviceId?: SortOrder
-    Device?: DeviceOrderByWithRelationInput
+    deviceId?: SortOrder
+    device?: DeviceOrderByWithRelationInput
   }
 
   export type ReadingWhereUniqueInput = Prisma.AtLeast<{
@@ -3356,8 +3434,8 @@ export namespace Prisma {
     temperature?: FloatFilter<"Reading"> | number
     humidity?: FloatFilter<"Reading"> | number
     date_time?: DateTimeFilter<"Reading"> | Date | string
-    DeviceId?: StringFilter<"Reading"> | string
-    Device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+    deviceId?: IntFilter<"Reading"> | number
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
   }, "id">
 
   export type ReadingOrderByWithAggregationInput = {
@@ -3365,7 +3443,7 @@ export namespace Prisma {
     temperature?: SortOrder
     humidity?: SortOrder
     date_time?: SortOrder
-    DeviceId?: SortOrder
+    deviceId?: SortOrder
     _count?: ReadingCountOrderByAggregateInput
     _avg?: ReadingAvgOrderByAggregateInput
     _max?: ReadingMaxOrderByAggregateInput
@@ -3381,24 +3459,27 @@ export namespace Prisma {
     temperature?: FloatWithAggregatesFilter<"Reading"> | number
     humidity?: FloatWithAggregatesFilter<"Reading"> | number
     date_time?: DateTimeWithAggregatesFilter<"Reading"> | Date | string
-    DeviceId?: StringWithAggregatesFilter<"Reading"> | string
+    deviceId?: IntWithAggregatesFilter<"Reading"> | number
   }
 
   export type DeviceCreateInput = {
-    token?: string
+    token: string
     address: string
     state: string
     city: string
     createdAt?: Date | string
+    name?: string
     read?: ReadingCreateNestedManyWithoutDeviceInput
   }
 
   export type DeviceUncheckedCreateInput = {
-    token?: string
+    id?: number
+    token: string
     address: string
     state: string
     city: string
     createdAt?: Date | string
+    name?: string
     read?: ReadingUncheckedCreateNestedManyWithoutDeviceInput
   }
 
@@ -3408,24 +3489,29 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     read?: ReadingUpdateManyWithoutDeviceNestedInput
   }
 
   export type DeviceUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
     token?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     read?: ReadingUncheckedUpdateManyWithoutDeviceNestedInput
   }
 
   export type DeviceCreateManyInput = {
-    token?: string
+    id?: number
+    token: string
     address: string
     state: string
     city: string
     createdAt?: Date | string
+    name?: string
   }
 
   export type DeviceUpdateManyMutationInput = {
@@ -3434,14 +3520,17 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type DeviceUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
     token?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReadingCreateInput = {
@@ -3449,7 +3538,7 @@ export namespace Prisma {
     temperature: number
     humidity: number
     date_time?: Date | string
-    Device: DeviceCreateNestedOneWithoutReadInput
+    device: DeviceCreateNestedOneWithoutReadInput
   }
 
   export type ReadingUncheckedCreateInput = {
@@ -3457,7 +3546,7 @@ export namespace Prisma {
     temperature: number
     humidity: number
     date_time?: Date | string
-    DeviceId: string
+    deviceId: number
   }
 
   export type ReadingUpdateInput = {
@@ -3465,7 +3554,7 @@ export namespace Prisma {
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
     date_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    Device?: DeviceUpdateOneRequiredWithoutReadNestedInput
+    device?: DeviceUpdateOneRequiredWithoutReadNestedInput
   }
 
   export type ReadingUncheckedUpdateInput = {
@@ -3473,7 +3562,7 @@ export namespace Prisma {
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
     date_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    DeviceId?: StringFieldUpdateOperationsInput | string
+    deviceId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ReadingCreateManyInput = {
@@ -3481,7 +3570,7 @@ export namespace Prisma {
     temperature: number
     humidity: number
     date_time?: Date | string
-    DeviceId: string
+    deviceId: number
   }
 
   export type ReadingUpdateManyMutationInput = {
@@ -3496,7 +3585,18 @@ export namespace Prisma {
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
     date_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    DeviceId?: StringFieldUpdateOperationsInput | string
+    deviceId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3536,27 +3636,57 @@ export namespace Prisma {
   }
 
   export type DeviceCountOrderByAggregateInput = {
+    id?: SortOrder
     token?: SortOrder
     address?: SortOrder
     state?: SortOrder
     city?: SortOrder
     createdAt?: SortOrder
+    name?: SortOrder
+  }
+
+  export type DeviceAvgOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type DeviceMaxOrderByAggregateInput = {
+    id?: SortOrder
     token?: SortOrder
     address?: SortOrder
     state?: SortOrder
     city?: SortOrder
     createdAt?: SortOrder
+    name?: SortOrder
   }
 
   export type DeviceMinOrderByAggregateInput = {
+    id?: SortOrder
     token?: SortOrder
     address?: SortOrder
     state?: SortOrder
     city?: SortOrder
     createdAt?: SortOrder
+    name?: SortOrder
+  }
+
+  export type DeviceSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3612,12 +3742,13 @@ export namespace Prisma {
     temperature?: SortOrder
     humidity?: SortOrder
     date_time?: SortOrder
-    DeviceId?: SortOrder
+    deviceId?: SortOrder
   }
 
   export type ReadingAvgOrderByAggregateInput = {
     temperature?: SortOrder
     humidity?: SortOrder
+    deviceId?: SortOrder
   }
 
   export type ReadingMaxOrderByAggregateInput = {
@@ -3625,7 +3756,7 @@ export namespace Prisma {
     temperature?: SortOrder
     humidity?: SortOrder
     date_time?: SortOrder
-    DeviceId?: SortOrder
+    deviceId?: SortOrder
   }
 
   export type ReadingMinOrderByAggregateInput = {
@@ -3633,12 +3764,13 @@ export namespace Prisma {
     temperature?: SortOrder
     humidity?: SortOrder
     date_time?: SortOrder
-    DeviceId?: SortOrder
+    deviceId?: SortOrder
   }
 
   export type ReadingSumOrderByAggregateInput = {
     temperature?: SortOrder
     humidity?: SortOrder
+    deviceId?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -3693,6 +3825,14 @@ export namespace Prisma {
     deleteMany?: ReadingScalarWhereInput | ReadingScalarWhereInput[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type ReadingUncheckedUpdateManyWithoutDeviceNestedInput = {
     create?: XOR<ReadingCreateWithoutDeviceInput, ReadingUncheckedCreateWithoutDeviceInput> | ReadingCreateWithoutDeviceInput[] | ReadingUncheckedCreateWithoutDeviceInput[]
     connectOrCreate?: ReadingCreateOrConnectWithoutDeviceInput | ReadingCreateOrConnectWithoutDeviceInput[]
@@ -3729,6 +3869,17 @@ export namespace Prisma {
     update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutReadInput, DeviceUpdateWithoutReadInput>, DeviceUncheckedUpdateWithoutReadInput>
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3754,6 +3905,33 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3771,17 +3949,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3794,17 +3961,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -3871,23 +4027,26 @@ export namespace Prisma {
     temperature?: FloatFilter<"Reading"> | number
     humidity?: FloatFilter<"Reading"> | number
     date_time?: DateTimeFilter<"Reading"> | Date | string
-    DeviceId?: StringFilter<"Reading"> | string
+    deviceId?: IntFilter<"Reading"> | number
   }
 
   export type DeviceCreateWithoutReadInput = {
-    token?: string
+    token: string
     address: string
     state: string
     city: string
     createdAt?: Date | string
+    name?: string
   }
 
   export type DeviceUncheckedCreateWithoutReadInput = {
-    token?: string
+    id?: number
+    token: string
     address: string
     state: string
     city: string
     createdAt?: Date | string
+    name?: string
   }
 
   export type DeviceCreateOrConnectWithoutReadInput = {
@@ -3912,14 +4071,17 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type DeviceUncheckedUpdateWithoutReadInput = {
+    id?: IntFieldUpdateOperationsInput | number
     token?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReadingCreateManyDeviceInput = {

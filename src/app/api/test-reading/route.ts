@@ -3,22 +3,21 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-// Token fixo para o dispositivo de teste
-const TEST_DEVICE_TOKEN = "aaaa";
+const TEST_DEVICE_TOKEN = "test";
+const TEST_DEVICE_ID = 4;
 
-// Função para gerar valores aleatórios com 2 casas decimais
 function gerarNumeroAleatorio(min: number, max: number) {
   return parseFloat((Math.random() * (max - min) + min).toFixed(2));
 }
 
 export async function GET() {
   try {
-    // Verifica se o device já existe
+    // Busca o device pelo token
     let device = await prisma.device.findUnique({
-      where: { token: TEST_DEVICE_TOKEN },
+      where: { id: TEST_DEVICE_ID },
     });
 
-    // Cria o dispositivo se ele não existir
+    // Cria o device se não existir
     if (!device) {
       device = await prisma.device.create({
         data: {
@@ -34,10 +33,10 @@ export async function GET() {
     const temperatura = gerarNumeroAleatorio(20, 30);
     const umidade = gerarNumeroAleatorio(40, 70);
 
-    // Cria a leitura
+    // Cria a leitura usando o id gerado
     const leitura = await prisma.reading.create({
       data: {
-        DeviceId: TEST_DEVICE_TOKEN,
+        deviceId: device.id,
         temperature: temperatura,
         humidity: umidade,
       },
@@ -46,9 +45,14 @@ export async function GET() {
     return NextResponse.json({
       message: "Random reading successfully registered",
       leitura,
+      token: device.token,
     });
   } catch (error) {
     console.error("[ERRO TEST-READING]", error);
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

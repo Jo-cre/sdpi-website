@@ -15,6 +15,12 @@
     "invalid": "Token inválido, tente novamente.",
     "button": "Enviar"
   },
+
+  "devices": {
+    "title": "Dispositivos",
+    "desc": "Estes são todos os dispositivos vinculados ao token"
+  },
+
   "chart": {
     "label": {
       "temperature": "Temperatura (°C)",

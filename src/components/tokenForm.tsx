@@ -34,7 +34,7 @@ export function TokenForm({ onSuccess, onLoading }: TokenFormProps) {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/readings?token=${data.token}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/devices?token=${data.token}`;
 
     onLoading(true);
 
@@ -68,7 +68,7 @@ export function TokenForm({ onSuccess, onLoading }: TokenFormProps) {
           message: t("invalid"),
         });
         onLoading(false);
-        console.error("Erro na requisição:", error);
+        console.error("Error on the query:", error);
       });
   }
 

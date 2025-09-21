@@ -15,19 +15,21 @@ datasource db {
 }
 
 model Device {
-  token     String    @id @default(uuid())
+  id        Int       @id @default(autoincrement())
+  token     String
   address   String
   state     String
   city      String
   read      Reading[]
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  name      String @default("unnamed")
 }
 
 model Reading {
-  id            String     @id @default(uuid())
-  temperature   Float
-  humidity      Float
-  date_time     DateTime   @default(now())
-  DeviceId      String
-  Device        Device @relation(fields: [DeviceId], references: [token])
+  id          String   @id @default(uuid())
+  temperature Float
+  humidity    Float
+  date_time   DateTime @default(now())
+  deviceId    Int
+  device      Device   @relation(fields: [deviceId], references: [id])
 }

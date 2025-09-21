@@ -6,24 +6,24 @@ const prisma = new PrismaClient();
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const token = searchParams.get("token");
+    const id = searchParams.get("id");
 
-    if (!token) {
+    if (!id) {
       return NextResponse.json(
-        { error: "Device token is required" },
+        { error: "Device id is required" },
         { status: 400 }
       );
     }
 
     const readings = await prisma.reading.findMany({
       where: {
-        DeviceId: token,
+        deviceId: Number(id),
       },
       orderBy: {
         date_time: "desc",
       },
       include: {
-        Device: true,
+        device: true,
       },
     });
 

@@ -121,11 +121,13 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 });
 
 exports.Prisma.DeviceScalarFieldEnum = {
+  id: 'id',
   token: 'token',
   address: 'address',
   state: 'state',
   city: 'city',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  name: 'name'
 };
 
 exports.Prisma.ReadingScalarFieldEnum = {
@@ -133,7 +135,7 @@ exports.Prisma.ReadingScalarFieldEnum = {
   temperature: 'temperature',
   humidity: 'humidity',
   date_time: 'date_time',
-  DeviceId: 'DeviceId'
+  deviceId: 'deviceId'
 };
 
 exports.Prisma.SortOrder = {
