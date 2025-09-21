@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 // Token fixo para o dispositivo de teste
-const TEST_DEVICE_TOKEN = "aaaaa";
+const TEST_DEVICE_TOKEN = "aaaa";
 
 // Função para gerar valores aleatórios com 2 casas decimais
 function gerarNumeroAleatorio(min: number, max: number) {
