@@ -203,7 +203,7 @@ export function TokenCard() {
             />
             {loading && (
               <div
-                className="absolute inset-0 flex items-center justify-center z-10 bg-card"
+                className="absolute h-[105%] m-auto inset-0 flex items-center justify-center z-10 bg-card"
                 style={{ minHeight: 120 }}
               >
                 <span className="inline-block w-8 h-8 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></span>
