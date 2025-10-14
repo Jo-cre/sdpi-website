@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -84,9 +83,12 @@ export function TokenForm({ onSuccess, onLoading }: TokenFormProps) {
           render={({ field }) => (
             <FormItem className="w-full flex flex-col items-center">
               <FormControl>
-                <Input placeholder="token" {...field} className="text-center" />
+                <Input
+                  placeholder={t("placeholder")}
+                  {...field}
+                  className="text-center"
+                />
               </FormControl>
-              <FormDescription>{t("desc")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}

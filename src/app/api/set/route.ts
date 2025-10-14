@@ -107,6 +107,16 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    if (token && token.includes("@") && temperature >= 43) {
+      sendEmailNotification(token, device.token, device.address, temperature)
+        .then(() => {
+          console.log("Email notification sent successfully");
+        })
+        .catch((error) => {
+          console.error("Failed to send email notification:", error);
+        });
+    }
+
     return NextResponse.json(
       { message: "Reading registered successfully.", leitura, device },
       { status: 201 }
@@ -117,5 +127,51 @@ export async function POST(req: NextRequest) {
       { error: "Internal error when registering reading." },
       { status: 500 }
     );
+  }
+}
+
+async function sendEmailNotification(
+  email: string,
+  deviceId: string,
+  address: string,
+  temperature: number
+) {
+  try {
+    const to = email?.toString() || "";
+    const device = deviceId?.toString() || "Unknown Device";
+    const addr = address?.toString() || "Unknown Address";
+    const temp = temperature?.toString() || "Unknown Temperature";
+
+    // Use a URL absoluta para a API route
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
+    const url = `${baseUrl}/email?${new URLSearchParams({
+      to,
+      device,
+      address: addr,
+      temperature: temp,
+    }).toString()}`;
+
+    console.log("Sending email to:", url);
+
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Email API error:", errorText);
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const result = await res.json();
+    console.log("Email sent successfully:", result);
+    return result;
+  } catch (err) {
+    console.error("Error in sendEmailNotification:", err);
+    throw err; // Propaga o erro para ser tratado pelo chamador
   }
 }

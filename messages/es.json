@@ -1,7 +1,7 @@
 {
   "tokenCard": {
-    "title": "Ingrese su token SDPI",
-    "desc": "El token fue entregado con el dispositivo.",
+    "title": "Ingrese su Email ou Token",
+    "desc": "(El token fue entregado con el dispositivo.)",
     "load": "Cargando...",
     "back": "Volver",
     "chart": {
@@ -10,15 +10,15 @@
     }
   },
   "tokenForm": {
-    "desc": "Inserta tu token aquí.",
-    "error": "El token debe contener al menos 2 dígitos.",
-    "invalid": "Token inválido, inténtalo de nuevo.",
+    "desc": "Inserta tu Email ou token aquí.",
+    "error": "Debe contener al menos 2 dígitos.",
+    "invalid": "Inválido, inténtalo de nuevo.",
     "button": "Enviar"
   },
 
   "devices": {
     "title": "Dispositivos",
-    "desc": "Estos son todos los dispositivos vinculados al token"
+    "desc": "Estos son todos los dispositivos vinculados"
   },
 
   "chart": {
@@ -26,6 +26,6 @@
       "temperature": "Temperatura (°C)",
       "humidity": "Humedad (%)"
     },
-    "noData": "No hay datos disponibles para este token."
+    "noData": "No hay datos disponibles para este Email ou token."
   }
 }
