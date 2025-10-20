@@ -78,7 +78,7 @@ export async function GET(req: Request) {
     const info = await transporter.sendMail({
       from: `SDPI <${SENDER_EMAIL}>`,
       to,
-      subject: "FOGO",
+      subject: "AVISO",
       html: emailHtml,
     });
 

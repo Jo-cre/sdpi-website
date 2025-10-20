@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (token && token.includes("@") && temperature >= 43) {
-      sendEmailNotification(token, device.token, device.address, temperature)
+      sendEmailNotification(token, device.name, device.address, temperature)
         .then(() => {
           console.log("Email notification sent successfully");
         })
