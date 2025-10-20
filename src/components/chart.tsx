@@ -10,6 +10,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useTranslations } from "next-intl";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 type ChartData = {
   date_time: string;
@@ -23,6 +24,10 @@ type ChartProps = {
 
 export function Chart({ data }: ChartProps) {
   const t = useTranslations("chart");
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
+
+  const width = isMobile ? "94.5%" : isTablet ? "100%" : "100%";
 
   const chartConfig = {
     temperature: {
@@ -39,7 +44,11 @@ export function Chart({ data }: ChartProps) {
     return <div className="text-center text-gray-500">No data available</div>;
   }
   return (
-    <ChartContainer config={chartConfig} className="h-[200px] w-full">
+    <ChartContainer
+      config={chartConfig}
+      className="h-[200px]"
+      style={{ width: width }}
+    >
       <AreaChart accessibilityLayer data={data}>
         <CartesianGrid vertical={false} />
         <XAxis
