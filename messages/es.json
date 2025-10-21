@@ -1,6 +1,6 @@
 {
   "tokenCard": {
-    "title": "Ingrese su Email ou Token",
+    "title": "Ingrese su Email o Token",
     "desc": "(El token fue entregado con el dispositivo.)",
     "load": "Cargando...",
     "back": "Volver",
@@ -10,6 +10,7 @@
     }
   },
   "tokenForm": {
+    "placeholder": "Email o Token",
     "desc": "Inserta tu Email ou token aquí.",
     "error": "Debe contener al menos 2 dígitos.",
     "invalid": "Inválido, inténtalo de nuevo.",
